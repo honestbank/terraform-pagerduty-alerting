@@ -1,0 +1,52 @@
+name: terratest
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+env:
+  TERRATEST_GOOGLE_CREDENTIALS: ${{ secrets.TERRATEST_GOOGLE_CREDENTIALS }}
+  GOOGLE_PROJECT: ${{ secrets.TERRATEST_GOOGLE_PROJECT }}
+  GCP_SA_EMAIL: ${{ secrets.TERRATEST_GCP_SA_EMAIL }}
+  TF_VAR_google_credentials: ${{ secrets.TERRATEST_GOOGLE_CREDENTIALS }}
+  TF_VAR_shared_vpc_host_google_credentials: ${{ secrets.TERRATEST_GOOGLE_CREDENTIALS }}
+jobs:
+  terratest:
+    name: terratest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Set up Go (1.17)
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+        id: go
+      - name: Login to Google Cloud
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          version: "latest" # This is the default value anyways, just being explicit
+          project_id: ${{ env.GOOGLE_PROJECT }}
+          service_account_email: ${{ env.GCP_SA_EMAIL }}
+          service_account_key: ${{ env.TERRATEST_GOOGLE_CREDENTIALS }}
+          export_default_credentials: false
+      - name: Set Google Cloud project
+        run: gcloud config set project $GOOGLE_PROJECT
+      - name: Run terratest
+        run: |
+          cd test
+          go test -v -timeout 5m
+      - name: Release
+        if: github.event_name == 'push'
+        uses: cycjimmy/semantic-release-action@v2
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          extra_plugins: |
+            @semantic-release/git@10.0.1
+            @semantic-release/exec@6.0.3
+            @semantic-release/changelog@6.0.1
