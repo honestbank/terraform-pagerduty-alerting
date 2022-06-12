@@ -27,7 +27,7 @@ jobs:
           go-version: 1.17
         id: go
       - name: Login to Google Cloud
-        uses: google-github-actions/setup-gcloud@v0
+        uses: google-github-actions/setup-gcloud@main
         with:
           version: "latest" # This is the default value anyways, just being explicit
           project_id: ${{ env.GOOGLE_PROJECT }}
