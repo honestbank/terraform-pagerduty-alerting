@@ -36,10 +36,10 @@ jobs:
           export_default_credentials: false
       - name: Set Google Cloud project
         run: gcloud config set project $GOOGLE_PROJECT
-      - name: Run terratest
-        run: |
-          cd test
-          go test -v -timeout 5m
+#       - name: Run terratest
+#         run: |
+#           cd test
+#           go test -v -timeout 5m
       - name: Release
         if: github.event_name == 'push'
         uses: cycjimmy/semantic-release-action@v2
