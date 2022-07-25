@@ -1,25 +1,36 @@
-# Terraform Component Module Template Repository
+# PagerDuty Terraform Component Module
 
-Use this repository as a starting point for building a [Terraform Component Module](https://www.notion.so/honestbank/WIP-How-to-structure-a-Terraform-module-31374a1594f84ef7b185ef4e06b36619).
+This repository contains the PagerDuty component module meant to be used by layer/other modules to build and manage
+PagerDuty resources. This module is not meant to manage live infrastructure on its own. For more details on Terraform
+module design please refer to the [Terraform Module Structure page](https://www.notion.so/honestbank/Module-Structure-31374a1594f84ef7b185ef4e06b36619)
+in Notion.
 
-The recommended usage is to make this a public [Trunk-Based Development](https://trunkbaseddevelopment.com) repo that
-automatically releases using SemVer on merge to trunk (typically called `main`). This module is then embedded and
-instantiated by Layer Modules to manage live infrastructure.
+<!-- BEGIN_TF_DOCS -->
+## Requirements
 
-## Customizations
+| Name | Version |
+|------|---------|
+| <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | >= 2.2 |
 
-### Pre-commit
+## Providers
 
-This template contains a [.pre-commit-config.yaml file](./.pre-commit-config.yaml). To use this, please [install pre-commit](https://pre-commit.com/#install)
-and run `pre-commit install` to install hooks. The default set of hooks should work for most Terraform modules/repos - please
-customize as needed.
+No providers.
 
-### Releases
+## Modules
 
-This template contains a [semantic-release](https://github.com/semantic-release/semantic-release) [configuration file](./release.config.js)
-that is configured to produce releases on merge to `main`.
+No modules.
 
-### GitHub Actions
+## Resources
 
-This template contains [a 'terraform' action/workflow](./.github/workflows/terraform.yml) that is configured to run on
-PRs and pushes to `main` and is designed around a [Trunk-Based Development](https://trunkbaseddevelopment.com) workflow.
+No resources.
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_pagerduty_token"></a> [pagerduty\_token](#input\_pagerduty\_token) | PagerDuty API token. | `string` | n/a | yes |
+
+## Outputs
+
+No outputs.
+<!-- END_TF_DOCS -->
