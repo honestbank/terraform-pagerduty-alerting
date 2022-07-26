@@ -165,6 +165,7 @@ Temporary Items
 # Terraform from https://github.com/github/gitignore/blob/master/Terraform.gitignore
 # Local .terraform directories
 **/.terraform/*
+**/.test-data/*
 
 # ###################################################################################
 # Ignore the dependency lock file. Both in root and in modules (for cases where modules are being tested as standalone code).

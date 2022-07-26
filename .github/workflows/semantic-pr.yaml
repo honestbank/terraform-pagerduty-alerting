@@ -1,0 +1,14 @@
+name: "Semantic Pull Request"
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  main:
+    name: semantic-pr
+    uses: honestbank/workflows/.github/workflows/general-semantic-pr.yaml@main
+    secrets: inherit

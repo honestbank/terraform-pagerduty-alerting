@@ -15,17 +15,13 @@ import (
 func TestPagerdutyUser(t *testing.T) {
 
 	runId := strings.ToLower(random.UniqueId())
-	pagerdutyApiBaseUrl := "https://api.pagerduty.com"
-	pagerdutyApiToken := os.Getenv("PAGERDUTY_TOKEN")
+	pagerdutyApiToken := loadPagerdutyToken(t)
 
 	// Working dirs
 	userWorkingDir := ""
-	createdUserId := ""
 
-	if len(pagerdutyApiToken) == 0 {
-		log.Println("Empty PAGERDUTY_TOKEN from env")
-		t.FailNow()
-	}
+	// For assignment later
+	createdUserId := ""
 
 	test_structure.RunTestStage(t, "create_user", func() {
 		userWorkingDir, createdUserId = createUser(t, pagerdutyApiToken)
