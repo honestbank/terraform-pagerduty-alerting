@@ -7,7 +7,7 @@ on:
     branches:
       - main
 env:
-  TF_VAR_pagerduty_token: ${{ secrets.PAGERDUTY_TOKEN }}
+  PAGERDUTY_TOKEN: ${{ secrets.PAGERDUTY_TOKEN }}
 jobs:
   terratest:
     name: terratest
