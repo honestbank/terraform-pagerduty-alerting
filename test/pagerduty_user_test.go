@@ -1,7 +1,6 @@
 package test
 
 import (
-	"github.com/gruntwork-io/terratest/modules/files"
 	http_helper "github.com/gruntwork-io/terratest/modules/http-helper"
 	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
@@ -29,7 +28,7 @@ func TestPagerdutyUser(t *testing.T) {
 	}
 
 	test_structure.RunTestStage(t, "create_user", func() {
-		userWorkingDir, createdUserId = createUser(t, "test-"+runId, "test-"+runId+"@honestbank.com", pagerdutyApiToken)
+		userWorkingDir, createdUserId = createUser(t, pagerdutyApiToken)
 	})
 
 	defer test_structure.RunTestStage(t, "destroy_user", func() {
@@ -41,29 +40,19 @@ func TestPagerdutyUser(t *testing.T) {
 	})
 }
 
-func createUser(t *testing.T, name string, email string, pagerdutyApiToken string) (string, string) {
+func createUser(t *testing.T, pagerdutyApiToken string) (string, string) {
 	//workingDir := test_structure.CopyTerraformFolderToTemp(t, "..", "modules/pagerduty-user")
-	workingDir := "../modules/pagerduty-user"
+	workingDir := "../examples/pagerduty-user"
 	log.Println("createUser - workingDir is: ", workingDir)
 
 	testDir, _ := os.Getwd()
-	pagerdutyProviderFileName := "pagerduty_provider.tf"
-	pagerdutyProviderFilePath := testDir + "/" + pagerdutyProviderFileName
-	copyErr := files.CopyFile(pagerdutyProviderFilePath, workingDir+"/"+pagerdutyProviderFileName)
-	if copyErr != nil {
-		log.Println("❌❌❌ error copying pagerduty_provider.tf: ", copyErr)
-	} else {
-		log.Println("✅✅✅ successfully copied pagerduty_provider.tf to: ", workingDir)
-	}
 
 	log.Println("test working dir is ", testDir)
 
 	createUserTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: "../modules/pagerduty-user",
+		TerraformDir: "../examples/pagerduty-user",
 
 		Vars: map[string]interface{}{
-			"name":            name,
-			"email_address":   email,
 			"pagerduty_token": pagerdutyApiToken,
 		},
 	})
@@ -97,6 +86,6 @@ func verifyUser(t *testing.T, pagerdutyUserId string, runId string, pagerdutyApi
 
 	// Should return 200
 	assert.Equalf(t, 200, status, "incorrect response code, expected 200")
-	assert.Containsf(t, response, "\"name\":\"test-"+runId+"\"", "correct name not found")
-	assert.Containsf(t, response, "\"email\":\"test-"+runId+"@honestbank.com\"", "correct email not found")
+	assert.Containsf(t, response, "\"name\":\"example\"", "correct name not found")
+	assert.Containsf(t, response, "\"email\":\"pagerduty-user-example@honestbank.com\"", "correct email not found")
 }

@@ -8,3 +8,4 @@ validate:
 
 docs:
 	terraform-docs -c .terraform-docs.yml .
+	cd examples/pagerduty-user/; terraform-docs markdown . --output-file README.md --output-mode inject
