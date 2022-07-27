@@ -17,3 +17,10 @@ repos:
       - id: terraform_validate
       - id: terraform_tfsec
       - id: terraform_checkov
+  - repo: https://github.com/gitguardian/ggshield
+    rev: v1.13.0
+    hooks:
+      - id: ggshield
+        language: python
+        stages: [commit]
+        args: [ 'secret', 'scan', 'pre-commit' ]
