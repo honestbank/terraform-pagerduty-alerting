@@ -7,11 +7,7 @@ on:
     branches:
       - main
 env:
-  TERRATEST_GOOGLE_CREDENTIALS: ${{ secrets.TERRATEST_GOOGLE_CREDENTIALS }}
-  GOOGLE_PROJECT: ${{ secrets.TERRATEST_GOOGLE_PROJECT }}
-  GCP_SA_EMAIL: ${{ secrets.TERRATEST_GCP_SA_EMAIL }}
-  TF_VAR_google_credentials: ${{ secrets.TERRATEST_GOOGLE_CREDENTIALS }}
-  TF_VAR_shared_vpc_host_google_credentials: ${{ secrets.TERRATEST_GOOGLE_CREDENTIALS }}
+  PAGERDUTY_TOKEN: ${{ secrets.PAGERDUTY_TOKEN }}
 jobs:
   terratest:
     name: terratest
@@ -26,16 +22,6 @@ jobs:
         with:
           go-version: 1.17
         id: go
-      - name: Login to Google Cloud
-        uses: google-github-actions/setup-gcloud@master
-        with:
-          version: "latest" # This is the default value anyways, just being explicit
-          project_id: ${{ env.GOOGLE_PROJECT }}
-          service_account_email: ${{ env.GCP_SA_EMAIL }}
-          service_account_key: ${{ env.TERRATEST_GOOGLE_CREDENTIALS }}
-          export_default_credentials: false
-      - name: Set Google Cloud project
-        run: gcloud config set project $GOOGLE_PROJECT
       - name: Run terratest
         run: |
           cd test
