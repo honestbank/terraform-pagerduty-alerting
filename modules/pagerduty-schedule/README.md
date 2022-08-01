@@ -9,7 +9,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_pagerduty"></a> [pagerduty](#provider\_pagerduty) | >= 2.2 |
+| <a name="provider_pagerduty"></a> [pagerduty](#provider\_pagerduty) | 2.5.2 |
 
 ## Modules
 
