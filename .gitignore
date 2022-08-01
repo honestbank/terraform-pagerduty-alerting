@@ -464,3 +464,6 @@ lint/tmp/
 !/.idea/runConfigurations/
 !/.idea/runConfigurations.xml
 /config/quality/lint/report/consumer-lint.html
+
+# GitGuardian
+.cache_ggshield
