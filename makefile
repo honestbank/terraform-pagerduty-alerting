@@ -12,3 +12,4 @@ docs:
 	cd examples/pagerduty-schedule/; terraform-docs markdown . --output-file README.md --output-mode inject
 	cd examples/pagerduty-escalation-policy/; terraform-docs markdown . --output-file README.md --output-mode inject
 	cd examples/honest-two-level-schedule/; terraform-docs markdown . --output-file README.md --output-mode inject
+	cd examples/pagerduty-service/; terraform-docs markdown . --output-file README.md --output-mode inject
