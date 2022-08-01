@@ -1,6 +1,6 @@
-# PagerDuty User Example
+# PagerDuty Schedule Example
 
-This example creates a basic PagerDuty User.
+This example creates a basic PagerDuty Schedule.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -33,9 +33,5 @@ No resources.
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_html_url"></a> [html\_url](#output\_html\_url) | URL at which the entity is uniquely displayed in the Web app |
-| <a name="output_id"></a> [id](#output\_id) | The ID of the user |
-| <a name="output_invitation_sent"></a> [invitation\_sent](#output\_invitation\_sent) | If true, the user has an outstanding invitation |
+No outputs.
 <!-- END_TF_DOCS -->

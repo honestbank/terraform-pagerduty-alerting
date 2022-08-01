@@ -8,6 +8,7 @@ on:
       - main
 env:
   PAGERDUTY_TOKEN: ${{ secrets.PAGERDUTY_TOKEN }}
+  TF_VAR_pagerduty_token: ${{ secrets.PAGERDUTY_TOKEN }}
 jobs:
   terratest:
     name: terratest
