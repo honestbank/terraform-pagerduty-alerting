@@ -5,8 +5,6 @@ terraform {
       version = ">= 2.2"
     }
   }
-
-  experiments = [module_variable_optional_attrs]
 }
 
 provider "pagerduty" {
