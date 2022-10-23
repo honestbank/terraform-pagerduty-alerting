@@ -3,25 +3,29 @@ package test
 import (
 	"context"
 	"encoding/json"
+	"fmt"
+	"log"
+	"testing"
+
 	"github.com/PagerDuty/go-pagerduty"
 	http_helper "github.com/gruntwork-io/terratest/modules/http-helper"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 	"github.com/stretchr/testify/assert"
-	"log"
-	"testing"
 )
 
-func TestPagerdutySchedule(t *testing.T) {
+const scheduleExampleDir = "./examples/pagerduty-schedule"
 
-	scheduleWorkingDir := test_structure.CopyTerraformFolderToTemp(t, "..", "examples/pagerduty-schedule")
-	scheduleWorkingDir = "../examples/pagerduty-schedule"
+func TestPagerdutySchedule(t *testing.T) {
+	runID := generateRunId()
+	scheduleName := fmt.Sprintf("terratest-%s", runID)
+	scheduleWorkingDir := test_structure.CopyTerraformFolderToTemp(t, "..", scheduleExampleDir)
 	createdScheduleId := ""
 	userOneId := ""
 	userTwoId := ""
 
 	test_structure.RunTestStage(t, "create_schedule", func() {
-		createdScheduleId, userOneId, userTwoId = createSchedule(t, scheduleWorkingDir)
+		createdScheduleId, userOneId, userTwoId = createSchedule(t, scheduleWorkingDir, scheduleName)
 		assert.NotNilf(t, createdScheduleId, "created schedule ID cannot be nil")
 	})
 
@@ -31,14 +35,17 @@ func TestPagerdutySchedule(t *testing.T) {
 
 	test_structure.RunTestStage(t, "verify_schedule", func() {
 		log.Println("🔎🔎🔎 About to verify schedule ID: ", createdScheduleId)
-		verifySchedule(t, createdScheduleId, userOneId, userTwoId)
+		verifySchedule(t, createdScheduleId, userOneId, userTwoId, scheduleName)
 	})
 }
 
-func createSchedule(t *testing.T, workingDir string) (string, string, string) {
+func createSchedule(t *testing.T, workingDir string, scheduleName string) (string, string, string) {
 	log.Println("about to create schedule - working dir is: ", workingDir)
 	createScheduleTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: workingDir,
+		Vars: map[string]interface{}{
+			"name": scheduleName,
+		},
 	})
 	test_structure.SaveTerraformOptions(t, workingDir, createScheduleTerraformOptions)
 	terraform.InitAndApply(t, createScheduleTerraformOptions)
@@ -56,7 +63,7 @@ func destroySchedule(t *testing.T, workingDir string) {
 	terraform.Destroy(t, options)
 }
 
-func verifySchedule(t *testing.T, scheduleId string, userOneId string, userTwoId string) {
+func verifySchedule(t *testing.T, scheduleId string, userOneId string, userTwoId string, expectedScheduleName string) {
 	options := createPagerdutyApiOptions(t, "GET", "/schedules/"+scheduleId)
 	status, response, httpError := http_helper.HTTPDoWithOptionsE(t, options)
 	log.Println("Returned error: ", httpError)
@@ -77,8 +84,8 @@ func verifySchedule(t *testing.T, scheduleId string, userOneId string, userTwoId
 	}
 	log.Println("Retrieved schedule from PagerDuty SDK: ", schedule)
 
-	assert.Equal(t, schedule.Name, "example")
-	assert.Equal(t, schedule.TimeZone, "Asia/Bangkok")
+	assert.Equal(t, expectedScheduleName, schedule.Name)
+	assert.Equal(t, "Asia/Bangkok",schedule.TimeZone)
 
 	assert.Equalf(t, 1, len(schedule.ScheduleLayers), "there must be one schedule layer created")
 	assert.Equalf(t, userOneId, schedule.ScheduleLayers[0].Users[0].User.ID, "incorrect first user in schedule rotation")

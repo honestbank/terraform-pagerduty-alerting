@@ -7,7 +7,7 @@ This example creates a basic PagerDuty Schedule.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | >= 2.2 |
+| <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | >= 2.7 |
 
 ## Providers
 

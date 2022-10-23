@@ -8,13 +8,13 @@ This module creates a PagerDuty Service.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
-| <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | >= 2.2 |
+| <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | >= 2.7 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_pagerduty"></a> [pagerduty](#provider\_pagerduty) | >= 2.2 |
+| <a name="provider_pagerduty"></a> [pagerduty](#provider\_pagerduty) | >= 2.7 |
 
 ## Modules
 

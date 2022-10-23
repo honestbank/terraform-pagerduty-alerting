@@ -32,7 +32,7 @@ module "level_one_engineering_schedule" {
   source = "../../modules/pagerduty-schedule"
 
   description = "level one engineering schedule"
-  name        = "level one engineering schedule"
+  name        = "level one engineering schedule - ${var.schedule_suffix}"
 
   # 604,800 seconds = 1 week (7 days)
   rotation_turn_length_seconds = 604800
@@ -51,7 +51,7 @@ module "level_two_engineering_schedule" {
   source = "../../modules/pagerduty-schedule"
 
   description = "level two engineering schedule"
-  name        = "level two engineering schedule"
+  name        = "level two engineering schedule - ${var.schedule_suffix}"
 
   # 604,800 seconds = 1 week (7 days)
   rotation_turn_length_seconds = 604800
@@ -70,7 +70,7 @@ module "level_two_product_schedule" {
   source = "../../modules/pagerduty-schedule"
 
   description = "level two product schedule"
-  name        = "level two product schedule"
+  name        = "level two product schedule - ${var.schedule_suffix}"
 
   # 604,800 seconds = 1 week (7 days)
   rotation_turn_length_seconds = 604800
@@ -86,7 +86,7 @@ module "level_three_engineering_schedule" {
   source = "../../modules/pagerduty-schedule"
 
   description = "level three engineering schedule"
-  name        = "level three engineering schedule"
+  name        = "level three engineering schedule - ${var.schedule_suffix}"
 
   # 604,800 seconds = 1 week (7 days)
   rotation_turn_length_seconds = 604800
@@ -102,7 +102,7 @@ module "level_three_product_schedule" {
   source = "../../modules/pagerduty-schedule"
 
   description = "level three product schedule"
-  name        = "level three product schedule"
+  name        = "level three product schedule - ${var.schedule_suffix}"
 
   # 604,800 seconds = 1 week (7 days)
   rotation_turn_length_seconds = 604800

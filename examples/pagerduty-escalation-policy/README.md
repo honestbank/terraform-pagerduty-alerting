@@ -9,7 +9,7 @@ This example creates a 3-level escalation policy - an example screenshot is prov
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | >= 2.2 |
+| <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | >= 2.7 |
 
 ## Providers
 
@@ -39,10 +39,10 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_description"></a> [description](#input\_description) | The description to set for the schedule. | `string` | `"The description to set for the schedule."` | no |
+| <a name="input_description"></a> [description](#input\_description) | The description to set for the schedule. | `string` | `"example escalation policy description"` | no |
 | <a name="input_escalation_delay_in_minutes"></a> [escalation\_delay\_in\_minutes](#input\_escalation\_delay\_in\_minutes) | Minutes until an incident is escalated. | `number` | `60` | no |
-| <a name="input_escalation_levels"></a> [escalation\_levels](#input\_escalation\_levels) | Escalation levels and targets | `any` | n/a | yes |
-| <a name="input_name"></a> [name](#input\_name) | The name to set for the schedule. | `string` | `"The name to set for the schedule."` | no |
+| <a name="input_escalation_levels"></a> [escalation\_levels](#input\_escalation\_levels) | Escalation levels and targets | `list` | `[]` | no |
+| <a name="input_name"></a> [name](#input\_name) | The name to set for the schedule. | `string` | `"example escalation policy name"` | no |
 | <a name="input_pagerduty_token"></a> [pagerduty\_token](#input\_pagerduty\_token) | PagerDuty API token. | `string` | n/a | yes |
 
 ## Outputs

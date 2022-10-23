@@ -3,7 +3,7 @@ module github.com/honestbank/terraform-pagerduty-alerting/v2
 go 1.18
 
 require (
-	github.com/PagerDuty/go-pagerduty v1.5.1
+	github.com/PagerDuty/go-pagerduty v1.6.0
 	github.com/gruntwork-io/terratest v0.40.18
 	github.com/stretchr/testify v1.8.0
 )
