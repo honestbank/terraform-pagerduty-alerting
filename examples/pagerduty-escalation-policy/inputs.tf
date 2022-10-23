@@ -6,7 +6,7 @@ variable "name" {
 
 variable "schedule_suffix" {
   description = "Suffix to the schedule names"
-  type = string
+  type        = string
 }
 
 variable "description" {

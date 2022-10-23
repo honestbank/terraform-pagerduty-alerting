@@ -1,6 +1,6 @@
 module "escalation_policy" {
   source = "../pagerduty-escalation-policy"
-  
+
   schedule_suffix = var.schedule_suffix
   pagerduty_token = var.pagerduty_token
 }

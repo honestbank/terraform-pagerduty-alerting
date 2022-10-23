@@ -20,7 +20,7 @@ variable "responder_user_ids" {
     Example: [userid1, userid2]
   EOF
   type        = list(string)
-    default = []
+  default     = []
 }
 
 variable "manager_user_ids" {
@@ -29,7 +29,7 @@ variable "manager_user_ids" {
     Example: "userid1"
   EOF
   type        = list(string)
-    default = []
+  default     = []
 }
 
 variable "observer_user_ids" {
@@ -38,5 +38,5 @@ variable "observer_user_ids" {
     Example: [userid1, userid2]
   EOF
   type        = list(string)
-  default = []
+  default     = []
 }
