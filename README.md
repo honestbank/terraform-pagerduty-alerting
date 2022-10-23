@@ -5,6 +5,11 @@ PagerDuty resources. This module is not meant to manage live infrastructure on i
 module design please refer to the [Terraform Module Structure page](https://www.notion.so/honestbank/Module-Structure-31374a1594f84ef7b185ef4e06b36619)
 in Notion.
 
+## Authentication
+
+To authenticate to PagerDuty/the provider, either set the `token` attribute in the provider configuration block, or
+export the `PAGERDUTY_TOKEN` environment variable.
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
