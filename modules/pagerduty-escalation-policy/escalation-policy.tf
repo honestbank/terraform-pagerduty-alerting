@@ -16,4 +16,6 @@ resource "pagerduty_escalation_policy" "escalation_policy" {
       }
     }
   }
+
+  teams = var.teams_id
 }
