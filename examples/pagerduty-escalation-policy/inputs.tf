@@ -4,6 +4,11 @@ variable "name" {
   type        = string
 }
 
+variable "schedule_suffix" {
+  description = "Suffix to the schedule names"
+  type = string
+}
+
 variable "description" {
   default     = "example escalation policy description"
   description = "The description to set for the schedule."

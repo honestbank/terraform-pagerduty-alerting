@@ -7,6 +7,8 @@ validate:
 	terraform fmt --recursive
 
 docs:
+	rm -rf modules/*/.terraform modules/*/.terraform.lock.hcl
+	rm -rf examples/*/.terraform examples/*/.terraform.lock.hcl
 	terraform-docs -c .terraform-docs.yml .
 	cd examples/pagerduty-user/; terraform-docs markdown . --output-file README.md --output-mode inject
 	cd examples/pagerduty-schedule/; terraform-docs markdown . --output-file README.md --output-mode inject

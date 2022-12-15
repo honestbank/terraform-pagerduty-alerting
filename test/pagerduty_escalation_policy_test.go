@@ -2,12 +2,13 @@ package test
 
 import (
 	"context"
+	"log"
+	"testing"
+
 	"github.com/PagerDuty/go-pagerduty"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 	"github.com/stretchr/testify/assert"
-	"log"
-	"testing"
 )
 
 func TestPagerdutyEscalationPolicy(t *testing.T) {
@@ -17,9 +18,9 @@ func TestPagerdutyEscalationPolicy(t *testing.T) {
 	log.Println("working dir for this test is: ", workingDir)
 
 	escalationPolicyId := ""
-
+	runID := generateRunId()
 	test_structure.RunTestStage(t, "create_escalation_policy", func() {
-		escalationPolicyId = createEscalationPolicy(t, workingDir)
+		escalationPolicyId = createEscalationPolicy(t, workingDir, runID)
 		log.Println("created escalation policy ID: ", escalationPolicyId)
 	})
 
@@ -32,11 +33,14 @@ func TestPagerdutyEscalationPolicy(t *testing.T) {
 	})
 }
 
-func createEscalationPolicy(t *testing.T, workingDir string) string {
+func createEscalationPolicy(t *testing.T, workingDir string, runID string) string {
 	escalationPolicyId := ""
 
 	options := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: workingDir,
+		Vars: map[string]interface{}{
+			"schedule_suffix": runID,
+		},
 	})
 	test_structure.SaveTerraformOptions(t, workingDir, options)
 	terraform.InitAndApply(t, options)

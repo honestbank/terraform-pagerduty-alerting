@@ -2,11 +2,12 @@ package test
 
 import (
 	"context"
+	"log"
+	"testing"
+
 	"github.com/PagerDuty/go-pagerduty"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
-	"log"
-	"testing"
 )
 
 func TestPagerdutyService(t *testing.T) {
@@ -16,8 +17,9 @@ func TestPagerdutyService(t *testing.T) {
 	workingDir = "../examples/pagerduty-service"
 
 	serviceId := ""
+	runID := generateRunId()
 	test_structure.RunTestStage(t, "create_service", func() {
-		serviceId = createPagerdutyService(t, workingDir)
+		serviceId = createPagerdutyService(t, workingDir, runID)
 	})
 	defer test_structure.RunTestStage(t, "destroy_service", func() {
 		destroyPagerdutyService(t, workingDir)
@@ -28,9 +30,12 @@ func TestPagerdutyService(t *testing.T) {
 	})
 }
 
-func createPagerdutyService(t *testing.T, workingDir string) string {
+func createPagerdutyService(t *testing.T, workingDir string, runID string) string {
 	options := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: workingDir,
+		Vars: map[string]interface{}{
+			"schedule_suffix": runID,
+		},
 	})
 	test_structure.SaveTerraformOptions(t, workingDir, options)
 	terraform.InitAndApply(t, options)
