@@ -17,5 +17,5 @@ variable "pagerduty_token" {
 
 variable "schedule_suffix" {
   description = "Suffix to the schedule names"
-  type = string
+  type        = string
 }

@@ -1,8 +1,8 @@
 locals {
   # The 3 consts below are the only prossible roles for a membership, as defined in Pagerduty API.
   CONST_RESPONDER_ROLE = "responder"
-  CONST_MANAGER_ROLE = "manager"
-  CONST_OBSERVER_ROLE = "observer"
+  CONST_MANAGER_ROLE   = "manager"
+  CONST_OBSERVER_ROLE  = "observer"
 }
 
 resource "pagerduty_team_membership" "responders" {
