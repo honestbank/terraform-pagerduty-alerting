@@ -41,4 +41,5 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_id"></a> [id](#output\_id) | The `id` attribute of the service. |
+| <a name="output_service_name"></a> [service\_name](#output\_service\_name) | The name of the service being created |
 <!-- END_TF_DOCS -->
