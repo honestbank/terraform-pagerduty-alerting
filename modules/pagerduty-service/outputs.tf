@@ -4,5 +4,6 @@ output "id" {
 }
 
 output "service_name" {
-  value = pagerduty_service.service.name
+  description = "The name of the service being created"
+  value       = pagerduty_service.service.name
 }
