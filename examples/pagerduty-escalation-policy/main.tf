@@ -114,6 +114,12 @@ module "level_three_product_schedule" {
   user_ids = [module.product_lead.id]
 }
 
+module "mock_team" {
+  source      = "../../modules/pagerduty-team"
+  name        = "${var.name} team"
+  description = "Created by terratest"
+}
+
 module "escalation_policy" {
   source = "../../modules/pagerduty-escalation-policy"
 
@@ -127,4 +133,8 @@ module "escalation_policy" {
     [module.level_two_engineering_schedule.id, module.level_two_product_schedule.id],
     [module.level_three_engineering_schedule.id, module.level_three_product_schedule.id],
   ])
+
+  teams_id = [
+    module.mock_team.id,
+  ]
 }

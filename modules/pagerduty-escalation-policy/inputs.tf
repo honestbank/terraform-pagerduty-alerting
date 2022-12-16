@@ -16,3 +16,9 @@ variable "name" {
   description = "The name to set for the schedules and the schedule layers."
   type        = string
 }
+
+variable "teams_id" {
+  description = "(Optional) Teams associated with the policy."
+  type        = list(string)
+  default     = []
+}
