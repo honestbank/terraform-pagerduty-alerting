@@ -6,7 +6,7 @@ resource "pagerduty_business_service" "business_service" {
 }
 
 resource "pagerduty_service_dependency" "supporting_services" {
-  for_each = toset(var.supporting_service_ids)
+  count = length(var.supporting_service_ids)
 
   dependency {
     dependent_service {
@@ -14,14 +14,14 @@ resource "pagerduty_service_dependency" "supporting_services" {
       type = pagerduty_business_service.business_service.type
     }
     supporting_service {
-      id   = each.value
+      id   = var.supporting_service_ids[count.index]
       type = "service"
     }
   }
 }
 
 resource "pagerduty_service_dependency" "supporting_business_services" {
-  for_each = toset(var.supporting_business_service_ids)
+  count = length(var.supporting_business_service_ids)
 
   dependency {
     dependent_service {
@@ -29,7 +29,7 @@ resource "pagerduty_service_dependency" "supporting_business_services" {
       type = pagerduty_business_service.business_service.type
     }
     supporting_service {
-      id   = each.value
+      id   = var.supporting_business_service_ids[count.index]
       type = "business_service"
     }
   }

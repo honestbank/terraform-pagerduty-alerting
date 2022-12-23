@@ -3,6 +3,8 @@ on:
   pull_request:
     branches: [test, dev, qa, prod, main]
 
+permissions: read-all
+
 jobs:
   checkov:
     name: checkov
