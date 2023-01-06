@@ -34,6 +34,7 @@ No modules.
 | <a name="input_escalation_delay_in_minutes"></a> [escalation\_delay\_in\_minutes](#input\_escalation\_delay\_in\_minutes) | The escalation delay between each layer of the escalation policy. | `any` | n/a | yes |
 | <a name="input_escalation_levels"></a> [escalation\_levels](#input\_escalation\_levels) | A list of a list of schedules. The outer list is mapped to escalation rules, while the inner list represents multiple targets in the same escalation level. | `list(list(string))` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | The name to set for the schedules and the schedule layers. | `string` | n/a | yes |
+| <a name="input_teams_id"></a> [teams\_id](#input\_teams\_id) | (Optional) Teams associated with the policy. | `list(string)` | `[]` | no |
 
 ## Outputs
 

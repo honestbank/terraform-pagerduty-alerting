@@ -43,3 +43,10 @@ variable "user_ids" {
     error_message = "At least two unique responders are required to build a two-level schedule. Repeated values are not allowed."
   }
 }
+
+variable "team_ids" {
+  description = "(Optional) Pagerduty Teams associated with the schedules."
+  type        = list(string)
+  nullable    = false
+  default     = []
+}

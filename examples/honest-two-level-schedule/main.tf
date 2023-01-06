@@ -6,6 +6,13 @@ module "dummy_users" {
   email_address = "pagerduty-schedule-example-user-${count.index}@honestbank.com"
 }
 
+module "dummy_team" {
+  source = "../../modules/pagerduty-team"
+
+  name        = var.team_name
+  description = "${var.name} - this is an example description"
+}
+
 module "schedule" {
   source = "../../modules/honest-two-level-schedule"
 
@@ -21,4 +28,8 @@ module "schedule" {
   time_zone      = "Asia/Bangkok"
 
   user_ids = module.dummy_users.*.id
+
+  team_ids = [
+    module.dummy_team.id
+  ]
 }

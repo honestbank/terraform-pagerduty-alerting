@@ -27,3 +27,10 @@ variable "user_ids" {
   description = "An ordered list of PagerDuty User IDs to add to the schedule. The individual's order in the schedule depends on the order of this list."
   type        = list(string)
 }
+
+variable "team_ids" {
+  description = "(Optional) Pagerduty Teams associated with the schedule."
+  type        = list(string)
+  nullable    = false
+  default     = []
+}

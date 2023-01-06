@@ -11,4 +11,6 @@ resource "pagerduty_schedule" "schedule" {
     rotation_turn_length_seconds = var.rotation_turn_length_seconds
     users                        = var.user_ids
   }
+
+  teams = var.team_ids
 }

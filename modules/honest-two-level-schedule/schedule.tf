@@ -32,6 +32,7 @@ module "level_one_schedule" {
   user_ids                     = var.user_ids
   start_datetime               = local.level_one_start_datetime_pagerduty_format
   time_zone                    = var.time_zone
+  team_ids                     = var.team_ids
 }
 
 module "level_two_schedule" {
@@ -43,4 +44,5 @@ module "level_two_schedule" {
   user_ids                     = var.user_ids
   start_datetime               = local.level_two_schedule_calculated_offset_start_datetime_pagerduty_format
   time_zone                    = var.time_zone
+  team_ids                     = var.team_ids
 }
