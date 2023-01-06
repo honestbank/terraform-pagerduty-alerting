@@ -10,13 +10,13 @@ as well as attaches dependencies that feed in to the business service using the 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
-| <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | >= 2.2 |
+| <a name="requirement_pagerduty"></a> [pagerduty](#requirement\_pagerduty) | >= 2.7 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_pagerduty"></a> [pagerduty](#provider\_pagerduty) | >= 2.2 |
+| <a name="provider_pagerduty"></a> [pagerduty](#provider\_pagerduty) | >= 2.7 |
 
 ## Modules
 
@@ -34,7 +34,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_description"></a> [description](#input\_description) | The description of the business service. If not set, a placeholder of `Managed by Terraform` will be set. | `string` | n/a | yes |
+| <a name="input_description"></a> [description](#input\_description) | The description of the business service. | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | The name of the business service. | `string` | n/a | yes |
 | <a name="input_owner_team_id"></a> [owner\_team\_id](#input\_owner\_team\_id) | ID of the team that owns this business service. | `string` | n/a | yes |
 | <a name="input_point_of_contact"></a> [point\_of\_contact](#input\_point\_of\_contact) | A string/text description of who to contact regarding this business service. | `string` | `null` | no |

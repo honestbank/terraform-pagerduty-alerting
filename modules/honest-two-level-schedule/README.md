@@ -35,6 +35,7 @@ No resources.
 | <a name="input_name"></a> [name](#input\_name) | The name to set for the schedules and the schedule layers. | `string` | n/a | yes |
 | <a name="input_rotation_turn_length_seconds"></a> [rotation\_turn\_length\_seconds](#input\_rotation\_turn\_length\_seconds) | The time in seconds each individual is on-call for. | `number` | n/a | yes |
 | <a name="input_start_datetime"></a> [start\_datetime](#input\_start\_datetime) | The start date and time of the schedule/rotation - format is `2022-03-23T17:00:00+07:00`. | `string` | `"2022-03-23T17:00:00+07:00"` | no |
+| <a name="input_team_ids"></a> [team\_ids](#input\_team\_ids) | (Optional) Pagerduty Teams associated with the schedules. | `list(string)` | `[]` | no |
 | <a name="input_time_zone"></a> [time\_zone](#input\_time\_zone) | The time zone to set for the schedule (eg. `Asia/Bangkok`). | `string` | `"Asia/Bangkok"` | no |
 | <a name="input_user_ids"></a> [user\_ids](#input\_user\_ids) | An ordered list of PagerDuty User IDs to add to the schedule. The individual's order in the schedule depends on the order of this list. | `list(string)` | n/a | yes |
 

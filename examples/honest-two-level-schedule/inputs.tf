@@ -3,6 +3,11 @@ variable "name" {
   type        = string
 }
 
+variable "team_name" {
+  description = "The name of the Team to set for the schedule."
+  type        = string
+}
+
 variable "pagerduty_token" {
   type        = string
   description = "PagerDuty API token."
