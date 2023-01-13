@@ -29,10 +29,12 @@ No resources.
 | <a name="input_description"></a> [description](#input\_description) | The description to set for the schedule. | `string` | `"example escalation policy description"` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name to set for the schedule. | `string` | `"example escalation policy name"` | no |
 | <a name="input_pagerduty_token"></a> [pagerduty\_token](#input\_pagerduty\_token) | PagerDuty API token. | `string` | n/a | yes |
+| <a name="input_schedule_suffix"></a> [schedule\_suffix](#input\_schedule\_suffix) | Suffix to the schedule names | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | <a name="output_service_id"></a> [service\_id](#output\_service\_id) | n/a |
+| <a name="output_service_name"></a> [service\_name](#output\_service\_name) | n/a |
 <!-- END_TF_DOCS -->

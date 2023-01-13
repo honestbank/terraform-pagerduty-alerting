@@ -57,6 +57,28 @@ func TestPagerdutyAdminUser(t *testing.T) {
 	})
 }
 
+func TestPagerdutyStakeholder(t *testing.T) {
+	pagerdutyApiToken := loadPagerdutyToken(t)
+
+	// Working dirs
+	userWorkingDir := ""
+
+	// For assignment later
+	createdUserId := ""
+
+	test_structure.RunTestStage(t, "create_user", func() {
+		userWorkingDir, createdUserId = createUser(t, "read_only_user", pagerdutyApiToken)
+	})
+
+	defer test_structure.RunTestStage(t, "destroy_user", func() {
+		destroyUser(t, pagerdutyApiToken, userWorkingDir)
+	})
+
+	test_structure.RunTestStage(t, "verify_user", func() {
+		verifyUser(t, createdUserId, "read_only_user", pagerdutyApiBaseUrl, pagerdutyApiToken)
+	})
+}
+
 func createUser(t *testing.T, role string, pagerdutyApiToken string) (string, string) {
 	//workingDir := test_structure.CopyTerraformFolderToTemp(t, "..", "modules/pagerduty-user")
 	workingDir := "../examples/pagerduty-user"
