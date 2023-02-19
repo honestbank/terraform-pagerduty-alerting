@@ -1,4 +1,4 @@
-name: "Semantic Pull Request"
+name: "honest-public-semantic-pull-request-workflow"
 
 on:
   pull_request:
@@ -10,8 +10,8 @@ on:
 permissions: read-all
 
 jobs:
-  main:
-    name: Semantic Pull Request
+  semantic-pull-request:
+    name: semantic-pull-request
     runs-on: ubuntu-latest
     steps:
       - uses: amannn/action-semantic-pull-request@v4
