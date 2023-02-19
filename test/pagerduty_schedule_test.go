@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"testing"
+	"time"
 
 	"github.com/PagerDuty/go-pagerduty"
 	http_helper "github.com/gruntwork-io/terratest/modules/http-helper"
@@ -17,6 +18,9 @@ import (
 const scheduleExampleDir = "./examples/pagerduty-schedule"
 
 func TestPagerdutySchedule(t *testing.T) {
+	// Sleeping to let user licenses from previous tests be returned into the pool
+	time.Sleep(10 * time.Second)
+
 	runID := generateRunId()
 	scheduleName := fmt.Sprintf("terratest-%s", runID)
 	scheduleWorkingDir := test_structure.CopyTerraformFolderToTemp(t, "..", scheduleExampleDir)
@@ -85,7 +89,7 @@ func verifySchedule(t *testing.T, scheduleId string, userOneId string, userTwoId
 	log.Println("Retrieved schedule from PagerDuty SDK: ", schedule)
 
 	assert.Equal(t, expectedScheduleName, schedule.Name)
-	assert.Equal(t, "Asia/Bangkok",schedule.TimeZone)
+	assert.Equal(t, "Asia/Bangkok", schedule.TimeZone)
 
 	assert.Equalf(t, 1, len(schedule.ScheduleLayers), "there must be one schedule layer created")
 	assert.Equalf(t, userOneId, schedule.ScheduleLayers[0].Users[0].User.ID, "incorrect first user in schedule rotation")

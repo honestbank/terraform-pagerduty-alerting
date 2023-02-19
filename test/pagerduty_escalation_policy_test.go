@@ -2,15 +2,20 @@ package test
 
 import (
 	"context"
+	"log"
+	"testing"
+	"time"
+
 	"github.com/PagerDuty/go-pagerduty"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 	"github.com/stretchr/testify/assert"
-	"log"
-	"testing"
 )
 
 func TestPagerdutyEscalationPolicy(t *testing.T) {
+	// Sleeping to let user licenses from previous tests be returned into the pool
+	time.Sleep(10 * time.Second)
+
 	workingDir := test_structure.CopyTerraformFolderToTemp(t, "..", "examples/pagerduty-escalation-policy")
 	workingDir = "../examples/pagerduty-escalation-policy"
 
