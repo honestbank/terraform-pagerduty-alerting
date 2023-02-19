@@ -28,6 +28,7 @@ No providers.
 | <a name="module_level_three_product_schedule"></a> [level\_three\_product\_schedule](#module\_level\_three\_product\_schedule) | ../../modules/pagerduty-schedule | n/a |
 | <a name="module_level_two_engineering_schedule"></a> [level\_two\_engineering\_schedule](#module\_level\_two\_engineering\_schedule) | ../../modules/pagerduty-schedule | n/a |
 | <a name="module_level_two_product_schedule"></a> [level\_two\_product\_schedule](#module\_level\_two\_product\_schedule) | ../../modules/pagerduty-schedule | n/a |
+| <a name="module_mock_team"></a> [mock\_team](#module\_mock\_team) | ../../modules/pagerduty-team | n/a |
 | <a name="module_product_lead"></a> [product\_lead](#module\_product\_lead) | ../../modules/pagerduty-user | n/a |
 | <a name="module_product_manager"></a> [product\_manager](#module\_product\_manager) | ../../modules/pagerduty-user | n/a |
 
@@ -44,6 +45,7 @@ No resources.
 | <a name="input_escalation_levels"></a> [escalation\_levels](#input\_escalation\_levels) | Escalation levels and targets | `list` | `[]` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name to set for the schedule. | `string` | `"example escalation policy name"` | no |
 | <a name="input_pagerduty_token"></a> [pagerduty\_token](#input\_pagerduty\_token) | PagerDuty API token. | `string` | n/a | yes |
+| <a name="input_schedule_suffix"></a> [schedule\_suffix](#input\_schedule\_suffix) | Suffix to the schedule names | `string` | n/a | yes |
 
 ## Outputs
 

@@ -1,3 +1,5 @@
+concurrency: terraform-pagerduty-alerting-terratest
+
 name: terratest
 on:
   pull_request:

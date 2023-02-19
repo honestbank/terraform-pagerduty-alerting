@@ -32,7 +32,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_email_address"></a> [email\_address](#input\_email\_address) | The email address of the user. | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | The name to set for the user. | `string` | n/a | yes |
-| <a name="input_role"></a> [role](#input\_role) | The user's role in PagerDuty. Can be `admin`, `limited_user`, or `user`. | `string` | `"user"` | no |
+| <a name="input_role"></a> [role](#input\_role) | The user's role in PagerDuty. Can be `admin`, `limited_user`, `read_only_user` (Full Stakeholder), or `user`. | `string` | `"user"` | no |
 
 ## Outputs
 

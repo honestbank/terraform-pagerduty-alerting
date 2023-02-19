@@ -1,5 +1,13 @@
 # PagerDuty Component Module Tests
 
+>
+> ⚠️ WARNING: Some tests may break/become broken due to licensing issues. The current set of tests requires
+> 5 full-user licenses which we don't always have available.
+>
+> We have reached out to PagerDuty to get help with
+> a dedicated testing account - https://honest-devops.pagerduty.com (currently on the Free plan, limited to 1 Schedule).
+>
+
 This folder contains the tests for all the PagerDuty resources/component modules contained in this repo.
 
 The Terratest automated testing code follows the convention set by the [Terraform PagerDuty Provider](https://registry.terraform.io/providers/PagerDuty/pagerduty/latest/docs)

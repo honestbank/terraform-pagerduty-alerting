@@ -1,6 +1,6 @@
 # PagerDuty Business Service Component Module
 
-This module creates a [PagerDuty Business Service](https://support.pagerduty.com/docs/business-services) using the 
+This module creates a [PagerDuty Business Service](https://support.pagerduty.com/docs/business-services) using the
 [`pagerduty_business_service` resource](https://registry.terraform.io/providers/PagerDuty/pagerduty/latest/docs/resources/business_service),
 as well as attaches dependencies that feed in to the business service using the [`pagerduty_service_dependency` resource](https://registry.terraform.io/providers/PagerDuty/pagerduty/latest/docs/resources/service_dependency).
 

@@ -14,6 +14,6 @@ variable "pagerduty_token" {
 }
 
 variable "role" {
-  default     = "user"
+  default     = "read_only_user"
   description = "The user's role in PagerDuty. Can be `admin`, `limited_user`, `read_only_user` (Full Stakeholder), or `user`."
 }
