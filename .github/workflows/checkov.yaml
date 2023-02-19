@@ -1,4 +1,4 @@
-name: "honest-public-checkov-workflow"
+name: "Checkov GitHub Action"
 on:
   pull_request:
     branches: [test, dev, qa, prod, main]
