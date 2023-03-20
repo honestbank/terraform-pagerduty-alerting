@@ -18,3 +18,4 @@ jobs:
         name: Semantic Pull Request
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
