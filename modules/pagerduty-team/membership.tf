@@ -6,9 +6,9 @@ locals {
 }
 
 resource "pagerduty_team_membership" "responders" {
-  count = length(var.responder_user_ids)
+  for_each = toset(var.responder_user_ids)
 
-  user_id = var.responder_user_ids[count.index]
+  user_id = each.key
   team_id = pagerduty_team.team.id
   role    = local.CONST_RESPONDER_ROLE
 }
