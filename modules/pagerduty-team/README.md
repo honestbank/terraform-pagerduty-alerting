@@ -14,7 +14,7 @@ This module creates a PagerDuty team using the [`pagerduty_team` resource](https
 
 | Name | Version |
 |------|---------|
-| <a name="provider_pagerduty"></a> [pagerduty](#provider\_pagerduty) | 2.11.2 |
+| <a name="provider_pagerduty"></a> [pagerduty](#provider\_pagerduty) | >= 2.7 |
 
 ## Modules
 
