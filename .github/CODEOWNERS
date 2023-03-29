@@ -5,4 +5,7 @@
 # the repo. Unless a later match takes precedence,
 # @global-owner1 and @global-owner2 will be requested for
 # review when someone opens a pull request.
-*       @honestbank/devops-engineers
+
+# Sorry everyone, this repository and incident-management have seen too much breakage over the past few months.
+# Until both PR reviewers and authors become more conscientious all code changes will require my review/approval.
+*       @jai
