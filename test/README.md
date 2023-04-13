@@ -13,8 +13,8 @@ This folder contains the tests for all the PagerDuty resources/component modules
 The Terratest automated testing code follows the convention set by the [Terraform PagerDuty Provider](https://registry.terraform.io/providers/PagerDuty/pagerduty/latest/docs)
 in that the PagerDuty API token is sourced from the `PAGERDUTY_TOKEN` environment variable.
 
-This value has been set as a GitHub Actions Org-level Secret as `PAGERDUTY_TOKEN` and the current value is set to a development
-token generated from Jai's account.
+This value has been set as a GitHub Actions Org-level Secret as `PAGERDUTY_TOKEN` and the current value is set to a token
+generated from our [sandbox PagerDuty account](https://start.1password.com/open/i?a=VXS5N4NL2JFYXPI7UPCI6VQCGQ&v=prb56mfnpzdlem3ka7klsfw2bq&i=mrxvuqd2qfsxvi7wovhejp7n74&h=honestbank.1password.com).
 
 ## Running a Specific Test
 
@@ -25,4 +25,12 @@ To run a specific test, use the following command:
 
 ```go
 go test -v -run "TestCaseName$"
+```
+
+## Updating Dependencies
+
+```go
+    cd test
+    go mod tidy
+    go get -u -t ./...
 ```
