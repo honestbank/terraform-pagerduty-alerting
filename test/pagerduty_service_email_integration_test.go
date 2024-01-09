@@ -25,7 +25,12 @@ func TestPagerdutyServiceEmailIntegration(t *testing.T) {
 	integrationName := fmt.Sprintf("example-pagerduty-service-integrations-email-%s", runID)
 
 	test_structure.RunTestStage(t, "create_service_integration_email", func() {
-		serviceId, integrationId, emailFilter = createPagerdutyServiceIntegration(t, workingDir, integrationEmail, integrationName)
+		var err error
+		serviceId, integrationId, emailFilter, err = createPagerdutyServiceIntegration(t, workingDir, integrationEmail, integrationName)
+		if err != nil {
+			destroyPagerdutyBusinessService(t, workingDir)
+			t.FailNow()
+		}
 	})
 
 	defer test_structure.RunTestStage(t, "destroy_service_integration_email", func() {
@@ -37,7 +42,7 @@ func TestPagerdutyServiceEmailIntegration(t *testing.T) {
 	})
 }
 
-func createPagerdutyServiceIntegration(t *testing.T, workingDir string, integrationEmail string, integrationName string) (string, string, EmailFilter) {
+func createPagerdutyServiceIntegration(t *testing.T, workingDir string, integrationEmail string, integrationName string) (string, string, EmailFilter, error) {
 	subjectRegex := "(CRITICAL*)"
 	fromEmailRegex := "(@foo.test*)"
 	options := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
@@ -56,14 +61,20 @@ func createPagerdutyServiceIntegration(t *testing.T, workingDir string, integrat
 		},
 	})
 	test_structure.SaveTerraformOptions(t, workingDir, options)
-	terraform.InitAndApply(t, options)
-	return terraform.Output(t, options, "service_id"), terraform.Output(t, options, "integration_id"), EmailFilter{
+	_, err := terraform.InitAndApplyE(t, options)
+	if err != nil {
+		return "", "", EmailFilter{}, err
+	}
+	serviceId, err := terraform.OutputE(t, options, "service_id")
+	integrationId, err := terraform.OutputE(t, options, "integration_id")
+	emailFilter := EmailFilter{
 		SubjectMode:    pagerduty.EmailFilterRuleModeMatch,
 		SubjectRegex:   subjectRegex,
 		BodyMode:       pagerduty.EmailFilterRuleModeAlways,
 		FromEmailMode:  pagerduty.EmailFilterRuleModeMatch,
 		FromEmailRegex: fromEmailRegex,
 	}
+	return serviceId, integrationId, emailFilter, err
 }
 
 type EmailFilter struct {
