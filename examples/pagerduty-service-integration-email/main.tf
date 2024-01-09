@@ -61,7 +61,7 @@ module "service" {
 }
 
 module "service_email_integration" {
-  source            = "../../modules/pagerduty-service-integrations-email"
+  source            = "../../modules/pagerduty-service-integration-email"
   integration_email = var.integration_email
   name              = var.name
   service_id        = module.service.id

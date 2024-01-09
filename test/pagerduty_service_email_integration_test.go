@@ -13,10 +13,10 @@ import (
 )
 
 func TestPagerdutyServiceEmailIntegration(t *testing.T) {
-	workingDir := test_structure.CopyTerraformFolderToTemp(t, "..", "examples/pagerduty-service-integrations-email")
+	workingDir := test_structure.CopyTerraformFolderToTemp(t, "..", "examples/pagerduty-service-integration-email")
 
 	// Temporary override for local development and testing
-	workingDir = "../examples/pagerduty-service-integrations-email"
+	workingDir = "../examples/pagerduty-service-integration-email"
 	serviceId := ""
 	integrationId := ""
 	emailFilter := EmailFilter{}
