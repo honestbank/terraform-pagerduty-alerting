@@ -4,8 +4,6 @@ repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0 # Get the latest version from: https://github.com/pre-commit/pre-commit-hooks/releases
     hooks:
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
       - id: check-yaml
       - id: detect-aws-credentials
         args: ["--allow-missing-credentials"]
@@ -13,10 +11,16 @@ repos:
     rev: v1.77.1 # Get the latest version from: https://github.com/antonbabenko/pre-commit-terraform/releases
     hooks:
       - id: terraform_fmt
-      - id: terraform_docs
       - id: terraform_validate
       - id: terraform_tfsec
       - id: terraform_checkov
+  - repo: local
+    hooks:
+      - id: docs
+        name: docs
+        entry: make
+        args: [ 'docs' ]
+        language: system
   - repo: https://github.com/gitguardian/ggshield
     rev: v1.14.4
     hooks:
@@ -24,3 +28,8 @@ repos:
         language: python
         stages: [commit]
         args: [ 'secret', 'scan', 'pre-commit' ]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0 # Get the latest version from: https://github.com/pre-commit/pre-commit-hooks/releases
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace

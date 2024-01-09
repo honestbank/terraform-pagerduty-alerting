@@ -1,5 +1,5 @@
 variable "email_address" {
-  description = "The email adddress of the user."
+  description = "The email address of the user."
   type        = string
 }
 

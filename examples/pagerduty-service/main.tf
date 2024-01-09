@@ -1,3 +1,7 @@
+resource "random_id" "random_suffix" {
+  byte_length = 10
+}
+
 module "escalation_policy" {
   source = "../pagerduty-escalation-policy"
 
@@ -7,7 +11,7 @@ module "escalation_policy" {
 
 module "service" {
   source      = "../../modules/pagerduty-service"
-  name        = var.name
+  name        = "${var.name}-${random_id.random_suffix.b64_url}"
   description = var.description
 
   acknowledgement_timeout                      = 0
