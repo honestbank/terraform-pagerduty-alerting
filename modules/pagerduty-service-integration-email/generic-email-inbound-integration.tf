@@ -7,6 +7,7 @@ resource "pagerduty_service_integration" "generic_email_inbound_integration" {
   # hardcoded because this is a generic_email_inbound_integration module.
   type                    = "generic_email_inbound_integration"
   email_incident_creation = var.email_incident_creation
+
   email_filter {
     # v1 we don't expose this yet.
     body_mode = "always"

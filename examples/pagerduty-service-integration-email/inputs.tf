@@ -13,10 +13,12 @@ variable "email_filter" {
     from_email_regex = string
     subject_regex    = string
   })
+
   default = {
     from_email_regex = null
     subject_regex    = null
   }
+
   description = <<-EOT
     email_filter = {
       from_email_regex : "The regex used to match the 'from' field in the inbound email. Should be a valid regex or null"
