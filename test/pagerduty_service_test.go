@@ -16,15 +16,15 @@ func TestPagerdutyService(t *testing.T) {
 
 	// Temporary override for local development and testing
 	workingDir = "../examples/pagerduty-service"
+	defer test_structure.RunTestStage(t, "destroy_service", func() {
+		destroyPagerdutyService(t, workingDir)
+	})
 
 	serviceId := ""
 	serviceName := ""
 	runID := generateRunId()
 	test_structure.RunTestStage(t, "create_service", func() {
 		serviceId, serviceName = createPagerdutyService(t, workingDir, runID)
-	})
-	defer test_structure.RunTestStage(t, "destroy_service", func() {
-		destroyPagerdutyService(t, workingDir)
 	})
 
 	test_structure.RunTestStage(t, "verify_service", func() {
@@ -45,7 +45,12 @@ func createPagerdutyService(t *testing.T, workingDir string, runID string) (stri
 }
 
 func destroyPagerdutyService(t *testing.T, workingDir string) {
-	terraform.Destroy(t, test_structure.LoadTerraformOptions(t, workingDir))
+	_, err := terraform.DestroyE(t, test_structure.LoadTerraformOptions(t, workingDir))
+	// have to re-do destroy sometimes coz of race conditions (i.e. try to delete team while it still has associations)
+	// In the retry the team will get deleted properly because the associations have been deleted in previous run
+	if err != nil {
+		terraform.Destroy(t, test_structure.LoadTerraformOptions(t, workingDir))
+	}
 }
 
 func verifyPagerdutyService(t *testing.T, serviceId string, serviceName string) {

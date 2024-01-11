@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"strings"
 	"testing"
 	"time"
 
@@ -27,14 +28,13 @@ func TestPagerdutySchedule(t *testing.T) {
 	createdScheduleId := ""
 	userOneId := ""
 	userTwoId := ""
+	defer test_structure.RunTestStage(t, "destroy_schedule", func() {
+		destroySchedule(t, scheduleWorkingDir)
+	})
 
 	test_structure.RunTestStage(t, "create_schedule", func() {
 		createdScheduleId, userOneId, userTwoId = createSchedule(t, scheduleWorkingDir, scheduleName)
 		assert.NotNilf(t, createdScheduleId, "created schedule ID cannot be nil")
-	})
-
-	defer test_structure.RunTestStage(t, "destroy_schedule", func() {
-		destroySchedule(t, scheduleWorkingDir)
 	})
 
 	test_structure.RunTestStage(t, "verify_schedule", func() {
@@ -88,7 +88,7 @@ func verifySchedule(t *testing.T, scheduleId string, userOneId string, userTwoId
 	}
 	log.Println("Retrieved schedule from PagerDuty SDK: ", schedule)
 
-	assert.Equal(t, expectedScheduleName, schedule.Name)
+	assert.True(t, strings.HasPrefix(schedule.Name, expectedScheduleName))
 	assert.Equal(t, "Asia/Bangkok", schedule.TimeZone)
 
 	assert.Equalf(t, 1, len(schedule.ScheduleLayers), "there must be one schedule layer created")
