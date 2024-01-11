@@ -1,19 +1,27 @@
+resource "random_id" "random_suffix" {
+  byte_length = 4
+}
+
+locals {
+  random_suffix = random_id.random_suffix.b64_url
+}
+
 module "user_one" {
   source        = "../../modules/pagerduty-user"
-  name          = "pagerduty-schedule-example-user-one"
-  email_address = "pagerduty-schedule-example-user-one@honestbank.com"
+  name          = "pagerduty-schedule-example-user-one-${local.random_suffix}"
+  email_address = "pagerduty-schedule-example-user-one-${local.random_suffix}@honestbank.com"
 }
 
 module "user_two" {
   source        = "../../modules/pagerduty-user"
-  name          = "pagerduty-schedule-example-user-two"
-  email_address = "pagerduty-schedule-example-user-two@honestbank.com"
+  name          = "pagerduty-schedule-example-user-two-${local.random_suffix}"
+  email_address = "pagerduty-schedule-example-user-two-${local.random_suffix}@honestbank.com"
 }
 
 module "schedule" {
   source = "../../modules/pagerduty-schedule"
 
-  name        = var.name
+  name        = "${var.name}-${local.random_suffix}"
   description = "Example schedule"
 
   # 604,800 seconds = 1 week (7 days)
