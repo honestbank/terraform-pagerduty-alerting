@@ -28,4 +28,5 @@ variable "email_filter" {
 variable "pagerduty_token" {
   type        = string
   description = "PagerDuty API token."
+  sensitive   = true
 }
