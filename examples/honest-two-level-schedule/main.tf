@@ -17,8 +17,8 @@ module "dummy_users" {
 module "dummy_team" {
   source = "../../modules/pagerduty-team"
 
-  name        = "${var.team_name}-${local.random_suffix}"
-  description = "${var.name}-${local.random_suffix} - this is an example description"
+  name        = "${var.team_name} - ${local.random_suffix}"
+  description = "${var.name} - ${local.random_suffix} - this is an example description"
 }
 
 module "schedule" {

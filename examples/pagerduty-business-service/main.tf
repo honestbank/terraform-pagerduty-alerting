@@ -9,7 +9,7 @@ locals {
 module "mock_team" {
   source = "../../modules/pagerduty-team"
 
-  name        = "team - ${var.name} - ${local.random_suffix}"
+  name        = "Team-${var.name}-${local.random_suffix}"
   description = "Created by terratest"
 }
 

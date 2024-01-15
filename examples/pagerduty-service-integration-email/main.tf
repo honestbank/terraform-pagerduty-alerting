@@ -15,7 +15,7 @@ module "engineering_user_one" {
 
 module "mock_team" {
   source      = "../../modules/pagerduty-team"
-  name        = "${var.name}-${local.random_suffix}team"
+  name        = "Team-${var.name}-${local.random_suffix}"
   description = "Created by terratest"
 }
 

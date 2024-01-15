@@ -1,4 +1,4 @@
-# PagerDuty Service Integrations - Email Example.
+# PagerDuty Service Integrations - Email Example
 
 This example creates a basic PagerDuty service integration of type `generic_email_inbound_integration`.
 
