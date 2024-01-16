@@ -1,6 +1,6 @@
-## PagerDuty service integration - Email
+## PagerDuty Email Service Integration
 
-A `pagerduty-service-integration-email` is a [`pagerduty_service_integration`](https://registry.terraform.io/providers/PagerDuty/pagerduty/latest/docs/resources/service_integration) of the type `generic_email_inbound_integration` that belongs to a service.
+A `pagerduty-service-integration-email` is a [`pagerduty_service_integration`](https://registry.terraform.io/providers/PagerDuty/pagerduty/latest/docs/resources/service_integration) of the type `generic_email_inbound_integration`. Use this module to trigger incidents via email messages.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

@@ -19,11 +19,12 @@ func TestPagerdutyUser(t *testing.T) {
 	// Working dirs
 	userWorkingDir := ""
 	generatedUserNameSuffix := ""
+	userEmail := ""
 
 	// For assignment later
 	createdUserId := ""
 	defer test_structure.RunTestStage(t, "destroy_user", func() {
-		destroyUser(t, pagerdutyApiToken, userWorkingDir)
+		destroyUser(t, userWorkingDir)
 	})
 
 	test_structure.RunTestStage(t, "create_user", func() {
@@ -31,11 +32,11 @@ func TestPagerdutyUser(t *testing.T) {
 		// NOTE: We use `read_only_user` (Stakeholder) because those licenses are available.
 		// We don't always have standard `user` licenses available so the test will fail
 		// when trying to create a user with no licenses available.
-		userWorkingDir, createdUserId, generatedUserNameSuffix = createUser(t, "read_only_user", pagerdutyApiToken)
+		userWorkingDir, createdUserId, generatedUserNameSuffix, userEmail = createUser(t, "read_only_user", pagerdutyApiToken)
 	})
 
 	test_structure.RunTestStage(t, "verify_user", func() {
-		verifyUser(t, createdUserId, "read_only_user", pagerdutyApiBaseUrl, pagerdutyApiToken, fmt.Sprintf("example-%s", generatedUserNameSuffix))
+		verifyUser(t, createdUserId, "read_only_user", pagerdutyApiBaseUrl, pagerdutyApiToken, fmt.Sprintf("example-%s", generatedUserNameSuffix), userEmail)
 	})
 }
 
@@ -65,8 +66,10 @@ func TestPagerdutyUser(t *testing.T) {
 //	})
 //}
 
-func createUser(t *testing.T, role string, pagerdutyApiToken string) (string, string, string) {
+func createUser(t *testing.T, role string, pagerdutyApiToken string) (string, string, string, string) {
 	//workingDir := test_structure.CopyTerraformFolderToTemp(t, "..", "modules/pagerduty-user")
+	runID := generateRunId()
+	userEmail := fmt.Sprintf("pagerduty-user-example%s@honestbank.com", runID)
 	workingDir := "../examples/pagerduty-user"
 	log.Println("createUser - workingDir is: ", workingDir)
 
@@ -78,6 +81,7 @@ func createUser(t *testing.T, role string, pagerdutyApiToken string) (string, st
 		TerraformDir: "../examples/pagerduty-user",
 
 		Vars: map[string]interface{}{
+			"email_address":   userEmail,
 			"pagerduty_token": pagerdutyApiToken,
 			"role":            role,
 		},
@@ -89,15 +93,15 @@ func createUser(t *testing.T, role string, pagerdutyApiToken string) (string, st
 	log.Println("🔢 returning PagerDuty User ID: ", pagerdutyUserId)
 	generatedUserNameSuffix := terraform.Output(t, createUserTerraformOptions, "generated_user_name_suffix")
 
-	return workingDir, pagerdutyUserId, generatedUserNameSuffix
+	return workingDir, pagerdutyUserId, generatedUserNameSuffix, userEmail
 }
 
-func destroyUser(t *testing.T, pagerdutyApiToken string, workingDir string) {
+func destroyUser(t *testing.T, workingDir string) {
 	terraformOptions := test_structure.LoadTerraformOptions(t, workingDir)
 	terraform.Destroy(t, terraformOptions)
 }
 
-func verifyUser(t *testing.T, pagerdutyUserId string, role string, pagerdutyApiBaseUrl string, pagerdutyApiToken string, expectedUserName string) {
+func verifyUser(t *testing.T, pagerdutyUserId string, role string, pagerdutyApiBaseUrl string, pagerdutyApiToken string, expectedUserName string, expectedUserEmail string) {
 	pagerdutyApiOptions := http_helper.HttpDoOptions{
 		Method: "GET",
 		Url:    pagerdutyApiBaseUrl + "/users/" + pagerdutyUserId,
@@ -115,7 +119,7 @@ func verifyUser(t *testing.T, pagerdutyUserId string, role string, pagerdutyApiB
 	assert.Equalf(t, 200, status, "incorrect response code, expected 200")
 	fmt.Printf("json = %s", response)
 	assert.Containsf(t, response, fmt.Sprintf("\"name\":\"%s\"", expectedUserName), "correct name not found")
-	assert.Containsf(t, response, "\"email\":\"pagerduty-user-example@honestbank.com\"", "correct email not found")
+	assert.Containsf(t, response, fmt.Sprintf("\"email\":\"%s\"", expectedUserEmail), "correct email not found")
 
 	client := pagerduty.NewClient(loadPagerdutyToken(t))
 	getUserOptions := pagerduty.GetUserOptions{}

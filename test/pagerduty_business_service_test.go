@@ -52,7 +52,7 @@ func createPagerdutyBusinessService(t *testing.T, workingDir string, businessSer
 
 func destroyPagerdutyBusinessService(t *testing.T, workingDir string) {
 	_, err := terraform.DestroyE(t, test_structure.LoadTerraformOptions(t, workingDir))
-	// have to re-do destroy sometimes coz of race conditions (i.e. try to delete team while it still has associations)
+	// have to re-do destroy sometimes because of race conditions (i.e. try to delete team while it still has associations)
 	// In the retry the team will get deleted properly because the associations have been deleted in previous run
 	if err != nil {
 		terraform.Destroy(t, test_structure.LoadTerraformOptions(t, workingDir))
@@ -65,6 +65,6 @@ func verifyPagerdutyBusinessService(t *testing.T, serviceID string, expectedBuss
 	if serviceErr != nil {
 		log.Println("error getting service: ", serviceErr)
 	}
-	fmt.Printf("checking strings %s with %s", expectedBussinessServiceName, businessService.Name)
+	fmt.Printf("comparing strings %s with %s", expectedBussinessServiceName, businessService.Name)
 	assert.True(t, strings.HasPrefix(businessService.Name, expectedBussinessServiceName))
 }
