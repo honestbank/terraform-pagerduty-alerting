@@ -11,6 +11,7 @@ variable "team_name" {
 variable "pagerduty_token" {
   type        = string
   description = "PagerDuty API token."
+  sensitive   = true
 }
 
 variable "dummy_user_count" {

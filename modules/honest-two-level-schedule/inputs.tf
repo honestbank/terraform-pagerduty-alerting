@@ -11,6 +11,7 @@ variable "name" {
 variable "rotation_turn_length_seconds" {
   description = "The time in seconds each individual is on-call for."
   type        = number
+
   validation {
     condition     = var.rotation_turn_length_seconds > 0
     error_message = "Rotation turn length must be greater than 0."
@@ -32,6 +33,7 @@ variable "time_zone" {
 variable "user_ids" {
   description = "An ordered list of PagerDuty User IDs to add to the schedule. The individual's order in the schedule depends on the order of this list."
   type        = list(string)
+
   validation {
     # This validation does not catch repeating user IDs with different cases (uppercase/lowercase, etc)
     # So duplicate values of "A" and "a" will be allowed.
@@ -40,6 +42,7 @@ variable "user_ids" {
       length(distinct(var.user_ids)) == length(var.user_ids),
       length(distinct([for u in var.user_ids : lower(u)])) == length(var.user_ids),
     ])
+
     error_message = "At least two unique responders are required to build a two-level schedule. Repeated values are not allowed."
   }
 }

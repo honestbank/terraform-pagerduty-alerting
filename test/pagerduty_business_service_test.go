@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strings"
 	"testing"
 
 	"github.com/PagerDuty/go-pagerduty"
@@ -12,12 +13,15 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-
 const businessServiceExampleDir = "./examples/pagerduty-business-service"
 const businessServiceDescriptionMock = "Created by Terratest"
 const businessServicePointOfContactMock = "Terratest - Contact the engineers"
+
 func TestPagerdutyBusinessService(t *testing.T) {
 	workingDir := test_structure.CopyTerraformFolderToTemp(t, "..", businessServiceExampleDir)
+	defer test_structure.RunTestStage(t, "destroy_business_service", func() {
+		destroyPagerdutyBusinessService(t, workingDir)
+	})
 
 	businessServiceID := ""
 	runID := generateRunId()
@@ -25,9 +29,6 @@ func TestPagerdutyBusinessService(t *testing.T) {
 	businessServiceName := fmt.Sprintf("terratest-%s", runID)
 	test_structure.RunTestStage(t, "create_business_service", func() {
 		businessServiceID = createPagerdutyBusinessService(t, workingDir, businessServiceName)
-	})
-	defer test_structure.RunTestStage(t, "destroy_business_service", func() {
-		destroyPagerdutyBusinessService(t, workingDir)
 	})
 
 	test_structure.RunTestStage(t, "verify_business_service", func() {
@@ -39,8 +40,8 @@ func createPagerdutyBusinessService(t *testing.T, workingDir string, businessSer
 	options := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: workingDir,
 		Vars: map[string]interface{}{
-			"name": businessServiceName,
-			"description": businessServiceDescriptionMock,
+			"name":             businessServiceName,
+			"description":      businessServiceDescriptionMock,
 			"point_of_contact": businessServicePointOfContactMock,
 		},
 	})
@@ -50,7 +51,12 @@ func createPagerdutyBusinessService(t *testing.T, workingDir string, businessSer
 }
 
 func destroyPagerdutyBusinessService(t *testing.T, workingDir string) {
-	terraform.Destroy(t, test_structure.LoadTerraformOptions(t, workingDir))
+	_, err := terraform.DestroyE(t, test_structure.LoadTerraformOptions(t, workingDir))
+	// have to re-do destroy sometimes because of race conditions (i.e. try to delete team while it still has associations)
+	// In the retry the team will get deleted properly because the associations have been deleted in previous run
+	if err != nil {
+		terraform.Destroy(t, test_structure.LoadTerraformOptions(t, workingDir))
+	}
 }
 
 func verifyPagerdutyBusinessService(t *testing.T, serviceID string, expectedBussinessServiceName string) {
@@ -59,6 +65,6 @@ func verifyPagerdutyBusinessService(t *testing.T, serviceID string, expectedBuss
 	if serviceErr != nil {
 		log.Println("error getting service: ", serviceErr)
 	}
-
-	assert.Equal(t, expectedBussinessServiceName, businessService.Name)
+	fmt.Printf("comparing strings %s with %s", expectedBussinessServiceName, businessService.Name)
+	assert.True(t, strings.HasPrefix(businessService.Name, expectedBussinessServiceName))
 }

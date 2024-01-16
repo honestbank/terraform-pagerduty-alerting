@@ -11,7 +11,9 @@ This example creates a basic PagerDuty User.
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
 
@@ -21,7 +23,9 @@ No providers.
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [random_id.random_suffix](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
 
 ## Inputs
 
@@ -36,6 +40,7 @@ No resources.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_generated_user_name_suffix"></a> [generated\_user\_name\_suffix](#output\_generated\_user\_name\_suffix) | The generated suffix for the user's name to avoid conflicting resource creation during testing. |
 | <a name="output_html_url"></a> [html\_url](#output\_html\_url) | URL at which the entity is uniquely displayed in the Web app. |
 | <a name="output_id"></a> [id](#output\_id) | The ID of the user. |
 | <a name="output_invitation_sent"></a> [invitation\_sent](#output\_invitation\_sent) | If true, the user has an outstanding invitation. |

@@ -15,6 +15,9 @@ import (
 
 func TestHonestTwoLevelSchedule(t *testing.T) {
 	workingDir := test_structure.CopyTerraformFolderToTemp(t, "..", "examples/honest-two-level-schedule")
+	defer test_structure.RunTestStage(t, "destroy_two_level_schedule", func() {
+		destroyTwoLevelSchedule(t, workingDir)
+	})
 
 	levelOneScheduleId := ""
 	levelTwoScheduleId := ""
@@ -26,10 +29,6 @@ func TestHonestTwoLevelSchedule(t *testing.T) {
 	teamName := fmt.Sprintf("Terratest created team - %s", runID)
 	test_structure.RunTestStage(t, "create_two_level_schedule", func() {
 		levelOneScheduleId, levelTwoScheduleId, teamID = createTwoLevelScheduleWithUserCount(t, workingDir, 2, teamName)
-	})
-
-	defer test_structure.RunTestStage(t, "destroy_two_level_schedule", func() {
-		destroyTwoLevelSchedule(t, workingDir)
 	})
 
 	test_structure.RunTestStage(t, "verify_two_level_schedule", func() {

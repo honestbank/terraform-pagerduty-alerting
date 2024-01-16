@@ -11,27 +11,26 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-
-const roleManager = "manager"
-const roleEngineer = "engineer"
-
 func TestPagerdutyTeam(t *testing.T) {
 
 	// This will verify the presence of the token as well as return it
 	_ = loadPagerdutyToken(t)
 	workingDir := "../examples/pagerduty-team"
+	defer test_structure.RunTestStage(t, "destroy_team", func() {
+		terraform.Destroy(t, test_structure.LoadTerraformOptions(t, workingDir))
+	})
 	// Value will be assigned once team is created, for verification
 	createdTeamId := ""
 	runId := generateRunId()
 	teamName := "terratest team " + runId
 	teamDescription := "This team was created by Terratest from the terraform-pagerduty repo with run ID: " + runId
-    teamMembers := map[string]string{}
+	teamMembers := map[string]string{}
 	test_structure.RunTestStage(t, "create_team", func() {
 		options := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 			TerraformDir: workingDir,
 			Vars: map[string]interface{}{
-				"name":        teamName,
-				"description": teamDescription,
+				"name":         teamName,
+				"description":  teamDescription,
 				"team_members": teamMembers,
 			},
 		})
@@ -58,10 +57,5 @@ func TestPagerdutyTeam(t *testing.T) {
 			}
 		}
 		assert.NotNil(t, targetTeam)
-
-	})
-
-	test_structure.RunTestStage(t, "destroy_team", func() {
-		terraform.Destroy(t, test_structure.LoadTerraformOptions(t, workingDir))
 	})
 }

@@ -12,6 +12,7 @@ variable "role" {
   default     = "user"
   description = "The user's role in PagerDuty. Can be `admin`, `limited_user`, `read_only_user` (Full Stakeholder), or `user`."
   type        = string
+
   validation {
     condition = anytrue([
       var.role == "admin",
@@ -19,6 +20,7 @@ variable "role" {
       var.role == "read_only_user",
       var.role == "user",
     ])
+
     error_message = "role must be one of `admin`, `limited_user`, `read_only_user`, or `user`."
   }
 }
