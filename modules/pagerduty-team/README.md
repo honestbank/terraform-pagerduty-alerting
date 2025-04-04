@@ -34,11 +34,11 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_description"></a> [description](#input\_description) | A description of the team. If not set, a placeholder of `Managed by Terraform` will be set. | `string` | n/a | yes |
-| <a name="input_manager_user_ids"></a> [manager\_user\_ids](#input\_manager\_user\_ids) | Pagerduty user IDs of the product manager of this team.<br>    Example: "userid1" | `list(string)` | `[]` | no |
+| <a name="input_manager_user_ids"></a> [manager\_user\_ids](#input\_manager\_user\_ids) | Pagerduty user IDs of the product manager of this team.<br/>    Example: "userid1" | `list(string)` | `[]` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name of the team. | `string` | n/a | yes |
-| <a name="input_observer_user_ids"></a> [observer\_user\_ids](#input\_observer\_user\_ids) | List of Pagerduty user IDs of the observers in this team.<br>    Example: [userid1, userid2] | `list(string)` | `[]` | no |
+| <a name="input_observer_user_ids"></a> [observer\_user\_ids](#input\_observer\_user\_ids) | List of Pagerduty user IDs of the observers in this team.<br/>    Example: [userid1, userid2] | `list(string)` | `[]` | no |
 | <a name="input_parent"></a> [parent](#input\_parent) | (Optional) ID of the parent team. This is available to accounts with the Team Hierarchy feature enabled. | `string` | `null` | no |
-| <a name="input_responder_user_ids"></a> [responder\_user\_ids](#input\_responder\_user\_ids) | List of Pagerduty user IDs of the responder in this team.<br>    Example: [userid1, userid2] | `list(string)` | `[]` | no |
+| <a name="input_responder_user_ids"></a> [responder\_user\_ids](#input\_responder\_user\_ids) | List of Pagerduty user IDs of the responder in this team.<br/>    Example: [userid1, userid2] | `list(string)` | `[]` | no |
 
 ## Outputs
 
