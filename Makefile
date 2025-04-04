@@ -15,7 +15,7 @@ docs:
 	cd examples/pagerduty-escalation-policy/; terraform-docs markdown . --output-file README.md --output-mode inject
 	cd examples/honest-two-level-schedule/; terraform-docs markdown . --output-file README.md --output-mode inject
 	cd examples/pagerduty-service/; terraform-docs markdown . --output-file README.md --output-mode inject
-	cd examples/pagerduty-service-integrations-email/; terraform-docs markdown . --output-file README.md --output-mode inject
+	cd examples/pagerduty-service-integration-email/; terraform-docs markdown . --output-file README.md --output-mode inject
 
 clean:
 	rm -rf examples/*/terraform.tfstate examples/*/terraform.tfstate.backup examples/*/.test-data
