@@ -77,7 +77,7 @@ func createUser(t *testing.T, role string, pagerdutyApiToken string) (string, st
 
 	log.Println("test working dir is ", testDir)
 
-	createUserTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+	createUserTerraformOptions := pagerdutyRetryableTerraformOptions(t, &terraform.Options{
 		TerraformDir: "../examples/pagerduty-user",
 
 		Vars: map[string]interface{}{

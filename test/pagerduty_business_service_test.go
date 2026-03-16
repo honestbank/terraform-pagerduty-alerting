@@ -37,7 +37,7 @@ func TestPagerdutyBusinessService(t *testing.T) {
 }
 
 func createPagerdutyBusinessService(t *testing.T, workingDir string, businessServiceName string) string {
-	options := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+	options := pagerdutyRetryableTerraformOptions(t, &terraform.Options{
 		TerraformDir: workingDir,
 		Vars: map[string]interface{}{
 			"name":             businessServiceName,

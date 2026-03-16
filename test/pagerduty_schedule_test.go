@@ -45,7 +45,7 @@ func TestPagerdutySchedule(t *testing.T) {
 
 func createSchedule(t *testing.T, workingDir string, scheduleName string) (string, string, string) {
 	log.Println("about to create schedule - working dir is: ", workingDir)
-	createScheduleTerraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+	createScheduleTerraformOptions := pagerdutyRetryableTerraformOptions(t, &terraform.Options{
 		TerraformDir: workingDir,
 		Vars: map[string]interface{}{
 			"name": scheduleName,

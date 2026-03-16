@@ -1,12 +1,15 @@
 package test
 
 import (
-	http_helper "github.com/gruntwork-io/terratest/modules/http-helper"
-	"github.com/gruntwork-io/terratest/modules/random"
 	"log"
 	"os"
 	"strings"
 	"testing"
+	"time"
+
+	http_helper "github.com/gruntwork-io/terratest/modules/http-helper"
+	"github.com/gruntwork-io/terratest/modules/random"
+	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
 const pagerdutyApiBaseUrl = "https://api.pagerduty.com"
@@ -50,6 +53,22 @@ func loadPagerdutyToken(t *testing.T) string {
 		t.FailNow()
 	}
 	return token
+}
+
+// pagerdutyRetryableTerraformOptions returns terraform options with PagerDuty-specific
+// retryable errors added on top of the default retryable errors.
+func pagerdutyRetryableTerraformOptions(t *testing.T, opts *terraform.Options) *terraform.Options {
+	opts.RetryableTerraformErrors = map[string]string{
+		".*Client\\.Timeout exceeded.*":   "PagerDuty API timeout, retrying.",
+		".*Email has already been taken.*": "PagerDuty user conflict from previous attempt, retrying.",
+		".*net/http: request canceled.*":   "HTTP request canceled, retrying.",
+		".*context deadline exceeded.*":    "Context deadline exceeded, retrying.",
+		".*TLS handshake timeout.*":        "TLS handshake timeout, retrying.",
+		".*i/o timeout.*":                  "Network I/O timeout, retrying.",
+	}
+	opts.MaxRetries = 5
+	opts.TimeBetweenRetries = 10 * time.Second
+	return terraform.WithDefaultRetryableErrors(t, opts)
 }
 
 func createPagerdutyApiOptions(t *testing.T, method string, path string) http_helper.HttpDoOptions {
