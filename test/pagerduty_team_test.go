@@ -26,7 +26,7 @@ func TestPagerdutyTeam(t *testing.T) {
 	teamDescription := "This team was created by Terratest from the terraform-pagerduty repo with run ID: " + runId
 	teamMembers := map[string]string{}
 	test_structure.RunTestStage(t, "create_team", func() {
-		options := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+		options := pagerdutyRetryableTerraformOptions(t, &terraform.Options{
 			TerraformDir: workingDir,
 			Vars: map[string]interface{}{
 				"name":         teamName,

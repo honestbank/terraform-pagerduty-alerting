@@ -39,7 +39,7 @@ func TestPagerdutyEscalationPolicy(t *testing.T) {
 func createEscalationPolicy(t *testing.T, workingDir string, runID string) string {
 	escalationPolicyId := ""
 
-	options := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+	options := pagerdutyRetryableTerraformOptions(t, &terraform.Options{
 		TerraformDir: workingDir,
 		Vars: map[string]interface{}{
 			"schedule_suffix": runID,

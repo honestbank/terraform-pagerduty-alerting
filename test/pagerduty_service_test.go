@@ -33,7 +33,7 @@ func TestPagerdutyService(t *testing.T) {
 }
 
 func createPagerdutyService(t *testing.T, workingDir string, runID string) (string, string) {
-	options := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+	options := pagerdutyRetryableTerraformOptions(t, &terraform.Options{
 		TerraformDir: workingDir,
 		Vars: map[string]interface{}{
 			"schedule_suffix": runID,

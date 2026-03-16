@@ -44,7 +44,7 @@ func TestPagerdutyServiceEmailIntegration(t *testing.T) {
 func createPagerdutyServiceIntegration(t *testing.T, workingDir string, integrationEmail string, integrationName string) (string, string, EmailFilter, error) {
 	subjectRegex := "(CRITICAL*)"
 	fromEmailRegex := "(@foo.test*)"
-	options := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+	options := pagerdutyRetryableTerraformOptions(t, &terraform.Options{
 		TerraformDir: workingDir,
 		Vars: map[string]interface{}{
 			"name":              integrationName,

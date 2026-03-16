@@ -41,7 +41,7 @@ func createTwoLevelScheduleWithUserCount(t *testing.T, workingDir string, userCo
 	levelOneScheduleId := ""
 	levelTwoScheduleId := ""
 
-	options := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+	options := pagerdutyRetryableTerraformOptions(t, &terraform.Options{
 		TerraformDir: workingDir,
 		Vars: map[string]interface{}{
 			"dummy_user_count": userCount,
