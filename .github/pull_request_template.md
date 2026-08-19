@@ -6,6 +6,8 @@
 
 -->
 
+### Pull Request Submission Checklist
+
 Please confirm that you have done the following before requesting reviews:
 
 - [ ] I have confirmed that the PR type is appropriate for the change I am making according to the [Honest Pull Request and Commit Message Naming Conventions](https://www.notion.so/honestbank/Pull-Request-and-Commit-Message-Naming-Conventions-bd97f2cbb34c4c73b1ff3a3e384b850c).
@@ -14,9 +16,4 @@ Please confirm that you have done the following before requesting reviews:
 
 ### Description
 
-<!--
-
-A description is required for all PRs :) Please try to provide background/context to the reviewer in order to get
-a more relevant/effective review.
-
--->
+* <!-- WRITE A SHORT DESCRIPTION OF CHANGES -->
